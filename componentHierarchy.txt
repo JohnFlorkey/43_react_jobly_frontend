@@ -1,0 +1,40 @@
+App
+	context = logged in user
+
+	NavBar
+		if no user logged in just show login/signup
+		if user logged in show Companies/Jobs/Profiles/Logout
+
+	Router
+		jobs state
+		companies state
+		company
+		user state
+
+		Home
+			user context aware
+
+		Login Form
+			form state
+		Signup Form
+			form state
+			sets user context
+
+		JobList
+			jobs prop from jobs state
+			Job
+				job prop
+
+		CompanyList
+			companies prop from companies state
+			Company
+				company prop
+		CompanyDetail
+			Job
+				job prop
+
+		UserForm aka Profile
+			form state
+			consumes user state
+			if user is admin can edit info and make other user admin
+			if user is self can edit
