@@ -1,16 +1,27 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 function NavBar() {
   return (
-    <div>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/companies">Companies</NavLink>
-      <NavLink to="/jobs">Jobs</NavLink>
-      <NavLink to="/profile">Profile</NavLink>
-      <NavLink to="/login">Login</NavLink>
-      <NavLink to="/signup">Signup</NavLink>
-    </div>
+    <Nav className="justify-content-center">
+      <Nav.Link href="/">React Jobly</Nav.Link>
+      <LinkContainer to="/companies">
+        <Nav.Link eventKey="companies">Companies</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to="/jobs">
+        <Nav.Link eventKey="jobs">Jobs</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to="/profile">
+        <Nav.Link eventKey="/profile">Profile</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to="/login">
+        <Nav.Link eventKey="/login">Login</Nav.Link>
+      </LinkContainer>
+      <LinkContainer to="/signup">
+        <Nav.Link eventKey="/signup">Signup</Nav.Link>
+      </LinkContainer>
+    </Nav>
   );
 }
 

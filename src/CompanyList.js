@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Form, InputGroup, Button } from "react-bootstrap";
 import CompanyCard from "./CompanyCard";
 import JoblyAPI from "./api";
 
@@ -35,15 +36,18 @@ function CompanyList() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="searchTerm"
-          placeholder="enter search term"
-          value={formData.searchTerm}
-          onChange={handleChange}
-        />
-        <button>Search</button>
-      </form>
+      <Form onSubmit={handleSubmit}>
+        <InputGroup>
+          <Form.Control
+            type="text"
+            name="searchTerm"
+            placeholder="enter search term"
+            value={formData.searchTerm}
+            onChange={handleChange}
+          />
+          <Button type="submit">Search</Button>
+        </InputGroup>
+      </Form>
       {companyList.map((c) => (
         <CompanyCard
           key={c.handle}

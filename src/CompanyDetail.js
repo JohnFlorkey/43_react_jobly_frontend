@@ -20,8 +20,8 @@ function CompanyDetail() {
   }, [handle]);
 
   return (
-    <div>
-      <div>{companyDetail.name}</div>
+    <div className="text-align-left">
+      <h3>{companyDetail.name}</h3>
       <div>{companyDetail.description}</div>
       {companyDetail.jobs.map((j) => (
         <JobCard
