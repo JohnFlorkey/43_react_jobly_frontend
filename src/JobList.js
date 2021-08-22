@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Form, InputGroup, Button } from "react-bootstrap";
 import JoblyApi from "./api";
 import JobCard from "./JobCard";
+import SearchForm from "./SearchFrom";
 
 function JobList() {
-  const INITIAL_FORM_STATE = { searchTerm: "" };
   const [jobList, setJobList] = useState([]);
-  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
   const [searchTerm, setSearchTerm] = useState();
 
   useEffect(() => {
@@ -17,37 +15,13 @@ function JobList() {
     getJobsAPI(searchTerm);
   }, [searchTerm]);
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    // if formData.searchTerm has a value use it, otherwise use undefined
-    const searchValue = formData.searchTerm ? formData.searchTerm : undefined;
+  const updateSearchTerm = (searchValue) => {
     setSearchTerm(searchValue);
-    //clear the form input
-    setFormData(INITIAL_FORM_STATE);
   };
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <InputGroup>
-          <Form.Control
-            type="text"
-            name="searchTerm"
-            placeholder="enter search term"
-            value={formData.searchTerm}
-            onChange={handleChange}
-          />
-          <Button type="submit">Search</Button>
-        </InputGroup>
-      </Form>
+      <SearchForm updateSearchTerm={updateSearchTerm} />
       {jobList.map((j) => (
         <JobCard
           key={j.id}
