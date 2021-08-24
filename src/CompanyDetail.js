@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, Redirect } from "react-router-dom";
 import JoblyApi from "./api";
 import JobCard from "./JobCard";
+import UserContext from "./UserContext";
 
 function CompanyDetail() {
+  const user = useContext(UserContext);
   const [companyDetail, setCompanyDetail] = useState({
     name: "",
     description: "",
@@ -19,7 +21,7 @@ function CompanyDetail() {
     getCompanyDetailAPI(handle);
   }, [handle]);
 
-  return (
+  return user.username ? (
     <div className="text-align-left">
       <h3>{companyDetail.name}</h3>
       <div>{companyDetail.description}</div>
@@ -32,6 +34,8 @@ function CompanyDetail() {
         />
       ))}
     </div>
+  ) : (
+    <Redirect to="/"></Redirect>
   );
 }
 

@@ -5,7 +5,7 @@ import Home from "./Home";
 import JobList from "./JobList";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-import Profile from "./Profile";
+import ProfileForm from "./ProfileForm";
 import CompanyDetail from "./CompanyDetail";
 import Logout from "./Logout";
 
@@ -13,7 +13,7 @@ function Routes({ props }) {
   return (
     <Switch>
       <Route path="/profile">
-        <Profile />
+        <ProfileForm props={props} />
       </Route>
       <Route path="/companies/:handle">
         <CompanyDetail />

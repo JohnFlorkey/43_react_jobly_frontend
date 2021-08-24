@@ -15,7 +15,13 @@ function App() {
   });
   const [authToken, setAuthToken] = useState();
 
-  useEffect(() => setAuthToken({ username: "", authToken: "" }), []);
+  useEffect(() => {
+    setAuthToken(
+      localStorage.getItem("authToken")
+        ? JSON.parse(localStorage.getItem("authToken"))
+        : { username: "", authToken: "" }
+    );
+  }, []);
 
   useEffect(() => {
     async function getUserAPI() {
@@ -24,6 +30,7 @@ function App() {
     }
     if (authToken && authToken.authToken) {
       JoblyApi.token = authToken.authToken;
+      localStorage.setItem("authToken", JSON.stringify(authToken));
       getUserAPI();
     } else {
       JoblyApi.token = "";
@@ -50,6 +57,7 @@ function App() {
       username: "",
       authToken: "",
     });
+    localStorage.removeItem("authToken");
   };
 
   const handleSignup = async (formData) => {
@@ -60,13 +68,20 @@ function App() {
     });
   };
 
+  const updateProfile = async (formData) => {
+    const response = await JoblyApi.patchUser(formData);
+    setUser(response);
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
         <div className="container">
           <UserContext.Provider value={user}>
             <NavBar />
-            <Routes props={{ handleLogin, handleLogout, handleSignup }} />
+            <Routes
+              props={{ handleLogin, handleLogout, handleSignup, updateProfile }}
+            />
           </UserContext.Provider>
         </div>
       </BrowserRouter>

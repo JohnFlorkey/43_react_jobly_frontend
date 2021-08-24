@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router";
 import CompanyCard from "./CompanyCard";
 import JoblyAPI from "./api";
 import SearchForm from "./SearchFrom";
+import UserContext from "./UserContext";
 
 function CompanyList() {
+  const user = useContext(UserContext);
   const [companyList, setCompanyList] = useState([]);
   const [searchTerm, setSearchTerm] = useState();
 
@@ -19,7 +22,7 @@ function CompanyList() {
     setSearchTerm(searchValue);
   };
 
-  return (
+  return user.username ? (
     <div>
       <SearchForm updateSearchTerm={updateSearchTerm} />
       {companyList.map((c) => (
@@ -31,6 +34,8 @@ function CompanyList() {
         />
       ))}
     </div>
+  ) : (
+    <Redirect to="/"></Redirect>
   );
 }
 
