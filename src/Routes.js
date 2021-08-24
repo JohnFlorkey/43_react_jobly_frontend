@@ -3,12 +3,13 @@ import { Route, Switch } from "react-router-dom";
 import CompanyList from "./CompanyList";
 import Home from "./Home";
 import JobList from "./JobList";
-import Login from "./Login";
-import Signup from "./Signup";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 import Profile from "./Profile";
 import CompanyDetail from "./CompanyDetail";
+import Logout from "./Logout";
 
-function Routes() {
+function Routes({ props }) {
   return (
     <Switch>
       <Route path="/profile">
@@ -24,10 +25,13 @@ function Routes() {
         <JobList />
       </Route>
       <Route path="/login">
-        <Login />
+        <LoginForm props={props} />
       </Route>
       <Route path="/signup">
-        <Signup />
+        <SignupForm props={props} />
+      </Route>
+      <Route path="/logout">
+        <Logout props={props} />
       </Route>
       <Route path="/">
         <Home />
