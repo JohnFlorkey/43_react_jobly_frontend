@@ -4,11 +4,12 @@ import JoblyApi from "./api";
 import JobCard from "./JobCard";
 import SearchForm from "./SearchFrom";
 import UserContext from "./UserContext";
+import useSearchTerm from "./useSearchTerm";
 
 function JobList({ props }) {
   const user = useContext(UserContext);
   const [jobList, setJobList] = useState([]);
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, updateSearchTerm] = useSearchTerm();
 
   useEffect(() => {
     async function getJobsAPI(searchTerm) {
@@ -20,10 +21,6 @@ function JobList({ props }) {
       setJobList([]);
     };
   }, [searchTerm]);
-
-  const updateSearchTerm = (searchValue) => {
-    setSearchTerm(searchValue);
-  };
 
   return user.username ? (
     <div>

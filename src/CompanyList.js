@@ -4,11 +4,12 @@ import CompanyCard from "./CompanyCard";
 import JoblyAPI from "./api";
 import SearchForm from "./SearchFrom";
 import UserContext from "./UserContext";
+import useSearchTerm from "./useSearchTerm";
 
 function CompanyList() {
   const user = useContext(UserContext);
   const [companyList, setCompanyList] = useState([]);
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, updateSearchTerm] = useSearchTerm();
 
   useEffect(() => {
     async function getCompaniesAPI(searchTerm) {
@@ -20,10 +21,6 @@ function CompanyList() {
       setCompanyList([]);
     };
   }, [searchTerm]);
-
-  const updateSearchTerm = (searchValue) => {
-    setSearchTerm(searchValue);
-  };
 
   return user.username ? (
     <div>
