@@ -1,25 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
+import useFormData from "./useFormData";
 
 function SearchForm({ updateSearchTerm }) {
   const INITIAL_FORM_STATE = { searchTerm: "" };
-  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
-
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [formData, updateFormData] = useFormData(INITIAL_FORM_STATE);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     // if formData.searchTerm has a value use it, otherwise use undefined
     const searchValue = formData.searchTerm ? formData.searchTerm : undefined;
     updateSearchTerm(searchValue);
-    //clear the form input
-    setFormData(INITIAL_FORM_STATE);
   };
 
   return (
@@ -30,7 +21,7 @@ function SearchForm({ updateSearchTerm }) {
           name="searchTerm"
           placeholder="enter search term"
           value={formData.searchTerm}
-          onChange={handleChange}
+          onChange={updateFormData}
         />
         <Button type="submit">Search</Button>
       </InputGroup>
