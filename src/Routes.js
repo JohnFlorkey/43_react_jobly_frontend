@@ -13,7 +13,7 @@ function Routes({ props }) {
   return (
     <Switch>
       <Route path="/profile">
-        <ProfileForm props={props} />
+        <ProfileForm />
       </Route>
       <Route path="/companies/:handle">
         <CompanyDetail />
@@ -25,13 +25,13 @@ function Routes({ props }) {
         <JobList />
       </Route>
       <Route path="/login">
-        <LoginForm props={props} />
+        <LoginForm />
       </Route>
       <Route path="/signup">
-        <SignupForm props={props} />
+        <SignupForm />
       </Route>
       <Route path="/logout">
-        <Logout props={props} />
+        <Logout />
       </Route>
       <Route path="/">
         <Home />

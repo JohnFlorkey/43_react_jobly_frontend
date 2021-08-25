@@ -3,15 +3,18 @@ import { useParams, Redirect } from "react-router-dom";
 import JoblyApi from "./api";
 import JobCard from "./JobCard";
 import UserContext from "./UserContext";
+// import FunctionContext from "./FunctionContext";
 
 function CompanyDetail() {
   const user = useContext(UserContext);
+  // const funcs = useContext(FunctionContext);
+  const { handle } = useParams();
+
   const [companyDetail, setCompanyDetail] = useState({
     name: "",
     description: "",
     jobs: [],
   });
-  const { handle } = useParams();
 
   useEffect(() => {
     async function getCompanyDetailAPI(handle) {
@@ -28,6 +31,7 @@ function CompanyDetail() {
       {companyDetail.jobs.map((j) => (
         <JobCard
           key={j.id}
+          jobID={j.id}
           title={j.title}
           salary={j.salary}
           equity={j.equity}

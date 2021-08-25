@@ -5,7 +5,7 @@ import JobCard from "./JobCard";
 import SearchForm from "./SearchFrom";
 import UserContext from "./UserContext";
 
-function JobList() {
+function JobList({ props }) {
   const user = useContext(UserContext);
   const [jobList, setJobList] = useState([]);
   const [searchTerm, setSearchTerm] = useState();
@@ -16,6 +16,9 @@ function JobList() {
       setJobList(response);
     }
     getJobsAPI(searchTerm);
+    return function cleanup() {
+      setJobList([]);
+    };
   }, [searchTerm]);
 
   const updateSearchTerm = (searchValue) => {
@@ -28,6 +31,7 @@ function JobList() {
       {jobList.map((j) => (
         <JobCard
           key={j.id}
+          jobID={j.id}
           title={j.title}
           companyName={j.companyName}
           salary={j.salary}

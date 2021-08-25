@@ -16,6 +16,9 @@ function CompanyList() {
       setCompanyList(response);
     }
     getCompaniesAPI(searchTerm);
+    return function cleanup() {
+      setCompanyList([]);
+    };
   }, [searchTerm]);
 
   const updateSearchTerm = (searchValue) => {

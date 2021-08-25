@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import UserContext from "./UserContext";
+import FunctionContext from "./FunctionContext";
 
-function ProfileForm({ props }) {
+function ProfileForm() {
   const user = useContext(UserContext);
+  const { updateProfile } = useContext(FunctionContext);
   const [formData, setFormData] = useState(user);
 
   const handleChange = (evt) => {
@@ -16,7 +18,7 @@ function ProfileForm({ props }) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    await props.updateProfile(formData);
+    await updateProfile(formData);
     setFormData({ ...formData, password: "" });
     document.getElementById("password").value = "";
   };

@@ -1,8 +1,13 @@
-import React from "react";
-import { Card } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Card, Button } from "react-bootstrap";
 import "./JobCard.css";
+import UserContext from "./UserContext";
+import FunctionContext from "./FunctionContext";
 
-function JobCard({ title, companyName, salary, equity }) {
+function JobCard({ title, jobID, companyName, salary, equity }) {
+  const user = useContext(UserContext);
+  const { handleJobApplication } = useContext(FunctionContext);
+
   return (
     <Card className="JobCard my-3">
       <Card.Body>
@@ -12,6 +17,18 @@ function JobCard({ title, companyName, salary, equity }) {
           <p>Salary: {salary}</p>
           <p>Equity: {equity}</p>
         </Card.Text>
+        {user.applications.find((j) => j === jobID) ? (
+          <Button className="btn-danger">Applied</Button>
+        ) : (
+          <Button
+            type="button"
+            onClick={() =>
+              handleJobApplication({ jobID, username: user.username })
+            }
+          >
+            Apply
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );

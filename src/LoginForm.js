@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
+import FunctionContext from "./FunctionContext";
 
-function LoginForm({ props }) {
+function LoginForm() {
+  const { handleLogin } = useContext(FunctionContext);
   const history = useHistory();
   const [formData, setFormData] = useState({
     username: "test_user",
@@ -16,7 +18,7 @@ function LoginForm({ props }) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    await props.handleLogin(formData);
+    await handleLogin(formData);
     history.push("/");
   };
   return (

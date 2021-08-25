@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import { Form, Button } from "react-bootstrap";
-// import JoblyApi from "./api";
+import FunctionContext from "./FunctionContext";
 
-function SignupForm({ props }) {
+function SignupForm() {
+  const { handleSignup } = useContext(FunctionContext);
   const history = useHistory();
 
   const SIGNUP_INTIIAL_STATE = {
@@ -22,18 +23,8 @@ function SignupForm({ props }) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    await props.handleSignup(formData);
+    await handleSignup(formData);
     history.push("/");
-    // async function registerAPI(formData) {
-    //   const response = await JoblyApi.postSignup(formData);
-    //   updateAuthToken({
-    //     username: formData.username,
-    //     authToken: response.token,
-    //   });
-    //   setFormData(SIGNUP_INTIIAL_STATE);
-    //   history.push("/");
-    // }
-    // registerAPI(formData);
   };
 
   return (

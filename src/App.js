@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
 import NavBar from "./NavBar";
 import UserContext from "./UserContext";
+import FunctionContext from "./FunctionContext";
 import JoblyApi from "./api";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     jobs: [],
   });
   const [authToken, setAuthToken] = useState();
+  const [jobApplication, setJobApplication] = useState({});
 
   useEffect(() => {
     setAuthToken(
@@ -42,7 +44,7 @@ function App() {
         jobs: [],
       });
     }
-  }, [authToken]);
+  }, [authToken, jobApplication]);
 
   const handleLogin = async (formData) => {
     const response = await JoblyApi.postLogin(formData);
@@ -73,15 +75,28 @@ function App() {
     setUser(response);
   };
 
+  const handleJobApplication = async (userJob) => {
+    const response = await JoblyApi.postApply(userJob);
+    setJobApplication(response);
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
         <div className="container">
           <UserContext.Provider value={user}>
             <NavBar />
-            <Routes
-              props={{ handleLogin, handleLogout, handleSignup, updateProfile }}
-            />
+            <FunctionContext.Provider
+              value={{
+                handleJobApplication,
+                handleLogin,
+                handleLogout,
+                handleSignup,
+                updateProfile,
+              }}
+            >
+              <Routes />
+            </FunctionContext.Provider>
           </UserContext.Provider>
         </div>
       </BrowserRouter>
