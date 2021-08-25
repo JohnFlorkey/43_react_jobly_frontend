@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import { Form, Button } from "react-bootstrap";
 import FunctionContext from "./FunctionContext";
+import useFormData from "./useFormData";
 
 function SignupForm() {
   const { handleSignup } = useContext(FunctionContext);
@@ -14,12 +15,8 @@ function SignupForm() {
     password: "hepdahep",
     email: "test.user@nodomain.com",
   };
-  const [formData, setFormData] = useState(SIGNUP_INTIIAL_STATE);
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const [formData, updateFormData] = useFormData(SIGNUP_INTIIAL_STATE);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -37,18 +34,18 @@ function SignupForm() {
           value={formData.username}
           name="username"
           id="username"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>
         <Form.Label htmlFor="">Password: </Form.Label>
         <Form.Control
-          type="text"
+          type="password"
           placeholder="password"
           value={formData.password}
           name="password"
           id="password"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>
@@ -59,7 +56,7 @@ function SignupForm() {
           value={formData.firstName}
           name="firstName"
           id="firstName"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>
@@ -70,7 +67,7 @@ function SignupForm() {
           value={formData.lastName}
           name="lastName"
           id="lastName"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>
@@ -81,7 +78,7 @@ function SignupForm() {
           value={formData.email}
           name="email"
           id="email"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>

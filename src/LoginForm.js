@@ -1,20 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
 import FunctionContext from "./FunctionContext";
+import useFormData from "./useFormData";
 
 function LoginForm() {
   const { handleLogin } = useContext(FunctionContext);
   const history = useHistory();
-  const [formData, setFormData] = useState({
+  const [formData, updateFormData] = useFormData({
     username: "test_user",
     password: "hepdahep",
   });
-
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -31,7 +27,7 @@ function LoginForm() {
           id="username"
           placeholder="username"
           value={formData.username}
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>
@@ -42,7 +38,7 @@ function LoginForm() {
           id="password"
           placeholder="password"
           value={formData.password}
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>

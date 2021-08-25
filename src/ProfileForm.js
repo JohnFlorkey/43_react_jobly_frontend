@@ -1,27 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import UserContext from "./UserContext";
 import FunctionContext from "./FunctionContext";
+import useFormData from "./useFormData";
 
 function ProfileForm() {
   const user = useContext(UserContext);
   const { updateProfile } = useContext(FunctionContext);
-  const [formData, setFormData] = useState(user);
-
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [formData, updateFormData] = useFormData(user);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     await updateProfile(formData);
-    setFormData({ ...formData, password: "" });
-    document.getElementById("password").value = "";
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group>
@@ -31,7 +23,7 @@ function ProfileForm() {
           name="username"
           id="username"
           value={formData.username}
-          onChange={handleChange}
+          onChange={updateFormData}
           disabled
         ></Form.Control>
       </Form.Group>
@@ -43,7 +35,7 @@ function ProfileForm() {
           value={formData.firstName}
           name="firstName"
           id="firstName"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>
@@ -54,7 +46,7 @@ function ProfileForm() {
           value={formData.lastName}
           name="lastName"
           id="lastName"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
       </Form.Group>
       <Form.Group>
@@ -65,19 +57,8 @@ function ProfileForm() {
           value={formData.email}
           name="email"
           id="email"
-          onChange={handleChange}
+          onChange={updateFormData}
         ></Form.Control>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label htmlFor="">Password: </Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="password"
-          name="password"
-          id="password"
-          onChange={handleChange}
-        ></Form.Control>
-        <Form.Text>Enter password to update profile</Form.Text>
       </Form.Group>
       <Form.Group>
         <Button type="submit">Update Profile</Button>

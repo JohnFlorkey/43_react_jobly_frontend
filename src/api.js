@@ -78,7 +78,6 @@ class JoblyApi {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      password: user.password,
     };
     let res = await this.request(`users/${user.username}`, data, "patch");
     return res.user;
