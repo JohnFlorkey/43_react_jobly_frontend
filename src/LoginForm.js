@@ -8,8 +8,8 @@ function LoginForm() {
   const { handleLogin } = useContext(FunctionContext);
   const history = useHistory();
   const [formData, updateFormData] = useFormData({
-    username: "test_user",
-    password: "hepdahep",
+    username: "",
+    password: "",
   });
 
   const handleSubmit = async (evt) => {

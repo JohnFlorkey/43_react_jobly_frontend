@@ -9,11 +9,11 @@ function SignupForm() {
   const history = useHistory();
 
   const SIGNUP_INTIIAL_STATE = {
-    username: "test_user",
-    firstName: "test",
-    lastName: "user",
-    password: "hepdahep",
-    email: "test.user@nodomain.com",
+    username: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    email: "",
   };
 
   const [formData, updateFormData] = useFormData(SIGNUP_INTIIAL_STATE);
